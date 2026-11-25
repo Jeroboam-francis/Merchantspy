@@ -1,0 +1,43 @@
+services:
+  oracle:
+    image: gvenzl/oracle-free:23-slim
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_PASSWORD:-LocalOracle-ChangeMe-123!}
+      APP_USER: ${ORACLE_APP_USER:-merchant_app}
+      APP_USER_PASSWORD: ${ORACLE_APP_PASSWORD:-LocalApp-ChangeMe-123!}
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+      - ./database/oracle_schema.sql:/container-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 15s
+      timeout: 10s
+      retries: 20
+  api:
+    build:
+      context: ./backend
+    environment:
+      APP_ENV: ${APP_ENV:-development}
+      DATABASE_URL: oracle+oracledb://${ORACLE_APP_USER:-merchant_app}:${ORACLE_APP_PASSWORD:-LocalApp-ChangeMe-123!}@oracle:1521/?service_name=FREEPDB1
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-replace-this-development-secret-before-deploying}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://localhost:8080}
+      SEED_ADMIN_EMAIL: ${SEED_ADMIN_EMAIL:-admin@airtel.example}
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:-ChangeMe-LocalOnly-123!}
+    ports:
+      - "8000:8000"
+    depends_on:
+      oracle:
+        condition: service_healthy
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8000/api/v1}
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+volumes:
+  oracle-data:

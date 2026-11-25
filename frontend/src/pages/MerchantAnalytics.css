@@ -1,0 +1,19 @@
+.merchant-analytics-page .analytics-layout {
+  grid-template-columns: minmax(0, 2fr) minmax(235px, .75fr);
+  align-items: start;
+}
+
+.merchant-analytics-page .merchant-table-panel { padding: 18px 0 10px; }
+.merchant-analytics-page .merchant-table-panel > .panel-heading { margin: 0 18px 15px; }
+.merchant-analytics-page .merchant-table-panel td,
+.merchant-analytics-page .merchant-table-panel th { padding-left: 14px; padding-right: 14px; }
+.merchant-analytics-page .segment-panel { position: sticky; top: 15px; }
+.merchant-analytics-page .grade-segments { display: grid; gap: 8px; margin-top: 15px; padding-top: 12px; border-top: 1px solid var(--border); }
+.merchant-analytics-page .grade-segments > b { margin-bottom: 1px; color: #777e88; font-size: 9px; text-transform: uppercase; letter-spacing: .5px; }
+.merchant-analytics-page .grade-segments > span { display: flex; align-items: center; gap: 8px; color: #8c929b; font-size: 9px; }
+.dark-theme .merchant-analytics-page .grade-segments > b { color: #b7bdc6; }
+
+@media (max-width: 780px) {
+  .merchant-analytics-page .analytics-layout { grid-template-columns: 1fr; }
+  .merchant-analytics-page .segment-panel { position: static; }
+}

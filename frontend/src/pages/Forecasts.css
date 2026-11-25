@@ -1,0 +1,44 @@
+.forecasts-page .forecast-controls {
+  padding: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 13px;
+}
+
+.forecasts-page .forecast-controls label { display: grid; gap: 6px; color: #777e88; font-size: 10px; }
+.forecasts-page .forecast-controls select,
+.forecasts-page .forecast-controls input {
+  min-width: 150px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0 10px;
+  color: #484f58;
+  background: var(--surface);
+  outline: none;
+  font-size: 11px;
+}
+.forecasts-page .forecast-controls .primary-button { margin-left: auto; }
+.forecasts-page .forecast-results { display: grid; gap: 15px; margin-top: 16px; }
+.forecasts-page .forecast-results > .panel:first-child { padding: 0 17px; }
+.forecasts-page .forecast-results .trend-panel { border: 0; box-shadow: none; }
+.forecasts-page .forecast-empty {
+  margin-top: 17px;
+  min-height: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #9198a1;
+}
+.forecasts-page .forecast-empty h2 { margin: 11px 0 0; color: #454b54; font-family: "Manrope", sans-serif; font-size: 15px; }
+.forecasts-page .forecast-empty p { font-size: 11px; }
+.forecasts-page .forecast-mark { color: var(--red); font-size: 33px; }
+.dark-theme .forecasts-page .forecast-controls select,
+.dark-theme .forecasts-page .forecast-controls input { color: var(--ink); background: var(--surface); }
+.dark-theme .forecasts-page .forecast-empty h2 { color: #e0e3e7; }
+
+@media (max-width: 780px) {
+  .forecasts-page .forecast-controls .primary-button { margin-left: 0; }
+}
